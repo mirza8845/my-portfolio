@@ -1,0 +1,361 @@
+@import "tailwindcss";
+
+:root {
+  --foreground: #ffffff;
+  --background: #0a0a0a;
+  --background-dark: #050505;
+  --primary: #14b8a6;
+  --primary-hover: #0d9488;
+  --secondary: #06b6d4;
+  --accent: #10b981;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background-dark);
+  color: var(--foreground);
+  overflow-x: hidden;
+}
+
+/* Navbar styling */
+header {
+  position: fixed;
+  top: 20px;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  transition: all 0.3s ease;
+}
+
+header.scrolled {
+  top: 10px;
+}
+
+header.scrolled nav {
+  background: rgba(0, 0, 0, 0.75);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+  height: 50px;
+}
+
+header nav {
+  max-width: calc(1024px - 3rem); /* Matched to max-w-5xl (1024px) with padding */
+  margin: 0 auto;
+  height: 60px;
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0 24px; /* Slightly increased padding inside nav */
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+  header nav {
+    max-width: calc(100% - 3rem);
+    margin: 0 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  header {
+    top: 10px;
+  }
+  
+  header nav {
+    max-width: calc(100% - 3rem);
+    margin: 0 1.5rem;
+    border-radius: 25px;
+  }
+
+  header nav.expanded {
+    border-radius: 25px 25px 0 0;
+    border-bottom: none;
+  }
+}
+
+header nav a {
+  position: relative;
+  letter-spacing: 0.02em;
+  padding: 6px 12px;
+  transition: all 0.2s ease;
+}
+
+header nav a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--primary);
+  transition: width 0.3s ease;
+}
+
+header nav a:hover::after,
+header nav a.active::after {
+  width: 60%;
+}
+
+header nav a.active {
+  color: white;
+}
+
+/* Mobile menu */
+header .mobile-menu {
+  max-width: calc(100% - 3rem);
+  margin: 0 1.5rem;
+  padding-top: 5px;
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: none;
+  border-radius: 0 0 25px 25px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transform-origin: top center;
+  transition: transform 0.2s ease;
+}
+
+header .mobile-menu a {
+  display: block;
+  transition: all 0.15s ease;
+}
+
+header .mobile-menu a::after {
+  height: 0;
+}
+
+/* Section styling */
+section {
+  padding: 80px 0;
+}
+
+section h2 {
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+section .section-divider {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  margin-bottom: 2.5rem;
+}
+
+/* Hero section */
+#home {
+  background-color: var(--background-dark);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 120px;
+  padding-bottom: 80px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  #home {
+    padding-top: 100px;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, var(--primary), var(--secondary));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, var(--primary-hover), var(--primary));
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Gradient Text Animation */
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+/* Glow Effect */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(20, 184, 166, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(20, 184, 166, 0.6);
+  }
+}
+
+.hover-glow:hover {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* Testimonials Section */
+.testimonials-wrapper {
+  overflow: hidden;
+  width: 100%;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+}
+
+.testimonials-track {
+  display: flex;
+  gap: 1.5rem;
+  animation: slide 35s linear infinite;
+  width: max-content;
+}
+
+.testimonials-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.testimonial-card {
+  flex-shrink: 0;
+  width: 380px;
+  background: rgba(30, 30, 40, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(20, 184, 166, 0.15);
+}
+
+.testimonial-card .quote-icon {
+  color: var(--primary);
+  opacity: 0.3;
+  font-size: 3rem;
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.testimonial-card .review-text {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.testimonial-card .client-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.testimonial-card .client-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: white;
+}
+
+.testimonial-card .client-name {
+  font-weight: 600;
+  color: white;
+  font-size: 1rem;
+}
+
+.testimonial-card .client-source {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.testimonial-card .stars {
+  color: #fbbf24;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 640px) {
+  .testimonial-card {
+    width: 320px;
+    padding: 1.5rem;
+  }
+  
+  .testimonial-card .review-text {
+    -webkit-line-clamp: 5;
+    font-size: 0.9rem;
+  }
+}
