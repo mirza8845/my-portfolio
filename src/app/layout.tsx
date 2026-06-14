@@ -12,13 +12,48 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = "https://jazzy-portfolio-profile.vercel.app"; // {{TODO: update to custom domain (e.g. https://jahanzaibali.dev) once set}}
+const siteTitle = "Jahanzaib Ali — Senior Full-Stack Engineer (React, Next.js, AI)";
+const siteDescription =
+  "Senior Full-Stack Engineer with 6+ years building AI-powered web and mobile products in React, Next.js, TypeScript, Node.js, and React Native. Available for remote work worldwide.";
+// {{TODO: add a real 1200×630 branded card at /public/images/og-image.png}}
+const ogImage = "/images/og-image.png";
+
 export const metadata: Metadata = {
-  title: "Jahanzaib Ali | Senior Software Engineer & Full-Stack Developer",
-  description: "Experienced Full-Stack Developer specializing in React, React Native, Node.js, Python, and modern web & mobile technologies",
-  keywords: ["frontend developer", "backend developer", "full stack", "react", "react native", "nodejs", "python", "django", "portfolio", "web developer", "mobile developer", "team leader"],
-    icons: {
-      icon: "/images/favicon.png",
-    },
+  metadataBase: new URL(siteUrl),
+  title: siteTitle,
+  description: siteDescription,
+  keywords: [
+    "full stack engineer",
+    "senior software engineer",
+    "react",
+    "next.js",
+    "typescript",
+    "node.js",
+    "react native",
+    "AI integration",
+    "LLM",
+    "remote developer",
+    "portfolio",
+  ],
+  authors: [{ name: "Jahanzaib Ali" }],
+  icons: {
+    icon: "/favicon.svg",
+  },
+  openGraph: {
+    type: "website",
+    url: siteUrl,
+    title: siteTitle,
+    description: siteDescription,
+    siteName: "Jahanzaib Ali",
+    images: [{ url: ogImage, width: 1200, height: 630, alt: "Jahanzaib Ali — Senior Full-Stack Engineer" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
+    images: [ogImage],
+  },
 };
 
 export default function RootLayout({

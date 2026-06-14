@@ -2,11 +2,21 @@
 
 import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
-import { FaGithub, FaLinkedin, FaReact, FaNodeJs } from "react-icons/fa";
-import { SiNextdotjs, SiTypescript, SiMongodb, SiPostgresql, SiOpenai, SiNestjs } from "react-icons/si";
+import {
+  FaGithub,
+  FaLinkedin,
+  FaReact,
+  FaNodeJs,
+  FaExternalLinkAlt,
+  FaLock,
+  FaFileDownload,
+} from "react-icons/fa";
+import { SiTypescript, SiMongodb } from "react-icons/si";
 import { motion, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
-import { Tooltip } from "antd";
+import { projects } from "@/data/projects";
+import { skillGroups } from "@/data/skills";
+import { realTestimonials } from "@/data/testimonials";
 
 const ParticlesBackground = dynamic(
   () => import("@/components/ParticlesBackground"),
@@ -21,22 +31,6 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState("home");
   const [scrolled, setScrolled] = useState(false);
   const [currentYear, setCurrentYear] = useState(2023);
-  const [displayedText, setDisplayedText] = useState("");
-  const fullTitle = "Senior Software Engineer | Full-Stack Developer";
-  
-  useEffect(() => {
-    if (!isMounted) return;
-    let index = 0;
-    const timer = setInterval(() => {
-      if (index <= fullTitle.length) {
-        setDisplayedText(fullTitle.slice(0, index));
-        index++;
-      } else {
-        clearInterval(timer);
-      }
-    }, 50);
-    return () => clearInterval(timer);
-  }, [isMounted]);
 
   const handleContactSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
@@ -109,14 +103,15 @@ export default function Home() {
             mobileMenuOpen ? "expanded" : ""
           }`}
         >
-          <motion.h1
+          <motion.a
+            href="#home"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
             className="text-xl font-bold"
           >
             Jahanzaib Ali
-          </motion.h1>
+          </motion.a>
 
           {/* Desktop Navigation */}
           <motion.div
@@ -138,6 +133,12 @@ export default function Home() {
                 {item}
               </a>
             ))}
+            <a
+              href="#contact"
+              className="ml-3 px-5 py-2 rounded-full bg-gradient-to-r from-teal-600 via-cyan-600 to-emerald-600 text-white text-sm font-semibold hover:shadow-lg hover:shadow-teal-500/20 transition-all"
+            >
+              Hire Me
+            </a>
           </motion.div>
 
           {/* Mobile Menu Button */}
@@ -208,6 +209,13 @@ export default function Home() {
                     </a>
                   )
                 )}
+                <a
+                  href="#contact"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="mt-2 text-center px-4 py-2.5 rounded-lg bg-gradient-to-r from-teal-600 via-cyan-600 to-emerald-600 text-white text-sm font-semibold"
+                >
+                  Hire Me
+                </a>
               </div>
             </motion.div>
           )}
@@ -221,35 +229,63 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-teal-900/20 to-black/50"></div>
         </div>
         <div className="max-w-5xl mx-auto px-6 relative z-10 w-full h-full flex items-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="flex flex-col text-left"
-          >
-            <h1 className="text-4xl md:text-6xl font-bold mb-2 text-white">
+          <div className="flex flex-col text-left">
+            <h1 className="text-4xl md:text-6xl font-bold mb-5 text-white leading-tight">
+              I build{" "}
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400">
-                Jahanzaib Ali
-              </span>
+                AI-powered
+              </span>{" "}
+              web &amp; mobile products.
             </h1>
-            <h2 className="text-xl md:text-2xl font-medium mb-8 text-white/80 min-h-[2rem]">
-              {displayedText}
-              <span className="animate-pulse">|</span>
-            </h2>
-            <p className="text-white/70 mb-10 max-w-xl">
-              Experienced Full-Stack Developer specializing in advanced Web and Mobile Applications. 
-              Expert in React, React Native, Node.js, Python, and modern web technologies. 
-              Proven track record as a team leader delivering successful projects.
+            <p className="text-lg md:text-xl text-white/80 mb-8 max-w-2xl leading-relaxed">
+              Senior Full-Stack Engineer, 6+ years across React, Next.js, Node.js
+              &amp; React Native — shipping AI and LLM features for teams in the
+              US, UK &amp; Europe.
             </p>
-            <motion.a
-              href="#projects"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-3 rounded-full bg-gradient-to-r from-teal-600 via-cyan-600 to-emerald-600 text-white font-medium transform transition-all shadow-lg hover:shadow-xl w-fit"
-            >
-              View My Work
-            </motion.a>
-          </motion.div>
+            <div className="flex flex-wrap items-center gap-4">
+              <a
+                href="#projects"
+                className="px-8 py-3 rounded-full bg-gradient-to-r from-teal-600 via-cyan-600 to-emerald-600 text-white font-semibold shadow-lg hover:shadow-xl hover:shadow-teal-500/20 transition-all"
+              >
+                View Work
+              </a>
+              <a
+                href="mailto:jahanzaib8845@gmail.com"
+                className="px-8 py-3 rounded-full border border-white/20 text-white font-semibold hover:bg-white/5 hover:border-teal-500/50 transition-all"
+              >
+                Email Me
+              </a>
+            </div>
+            <p className="mt-6 text-sm text-white/50 flex items-center gap-2">
+              <span className="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
+              Available for remote work worldwide
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Proof Strip */}
+      <section
+        aria-label="Credibility"
+        className="bg-black border-y border-gray-800/80 !py-6"
+      >
+        <div className="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 justify-between">
+          <p className="text-sm md:text-base text-gray-300">
+            Built products for teams across the{" "}
+            <span className="text-white font-medium">
+              US, UK, Germany &amp; Cyprus
+            </span>
+            .
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <span className="px-4 py-1.5 text-sm rounded-full bg-teal-500/10 text-teal-300 border border-teal-500/30 font-medium">
+              ~40% faster event setup
+            </span>
+            <span className="px-4 py-1.5 text-sm rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 font-medium">
+              ~30% faster load times
+            </span>
+            {/* {{TODO: owner — add real client logos here once available}} */}
+          </div>
         </div>
       </section>
 
@@ -302,45 +338,26 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* Skill Categories Grid */}
+          {/* Grouped Skills (AI & Integration first) */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Frontend Development",
-                skills: ["React.js", "React Native", "Vue.js", "JavaScript", "HTML5", "CSS3", "Bootstrap", "Tailwind CSS", "Material UI", "ReactStrap"],
-              },
-              {
-                title: "Backend Development",
-                skills: ["Node.js", "Express.js", "Python", "Django", "PHP", "Laravel", "REST APIs", "Firebase"],
-              },
-              {
-                title: "Databases",
-                skills: ["MongoDB", "Firebase", "MySQL", "PostgreSQL"],
-              },
-              {
-                title: "Mobile Development",
-                skills: ["React Native", "Flutter", "Dart", "iOS & Android", "Cross-platform Apps"],
-              },
-              {
-                title: "Tools & Technologies",
-                skills: ["Git", "Redux", "Axios", "Firebase Cloud Messaging", "Pubnub", "Social Auth", "Push Notifications"],
-              },
-              {
-                title: "Project Types",
-                skills: ["AI LMS Systems", "E-commerce Apps", "Event Management", "Freelance Marketplaces", "Service Platforms", "Web & Mobile Apps"],
-              },
-            ].map((category, index) => (
+            {skillGroups.map((group, index) => (
               <motion.div
-                key={category.title}
+                key={group.label}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="p-6 rounded-lg bg-gray-800/50 border border-gray-700 hover:border-teal-500/50 transition-all"
+                className={`p-6 rounded-lg bg-gray-800/50 border transition-all ${
+                  index === 0
+                    ? "border-teal-500/50 bg-teal-500/5"
+                    : "border-gray-700 hover:border-teal-500/50"
+                }`}
               >
-                <h3 className="text-lg font-semibold mb-4 text-white">{category.title}</h3>
+                <h3 className="text-lg font-semibold mb-4 text-white">
+                  {group.label}
+                </h3>
                 <div className="flex flex-wrap gap-2">
-                  {category.skills.map((skill) => (
+                  {group.items.map((skill) => (
                     <span
                       key={skill}
                       className="px-3 py-1 text-sm rounded-md bg-gray-700/50 text-gray-300 border border-gray-600/50"
@@ -368,103 +385,17 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">My Projects</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Featured Projects
+            </h2>
             <div className="section-divider"></div>
+            <p className="text-gray-400 max-w-2xl -mt-6 mb-2">
+              Outcome-led work, AI products first.
+            </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: "SoStudy",
-                description:
-                  "An AI-powered Learning Management System (LMS) featuring web and mobile applications. This platform facilitates seamless management of learning experiences for both students and educational institutions with advanced AI capabilities.",
-                tech: "React.js, React Native, Node.js, Express.js",
-                image: "/images/sostudy.png",
-                github: "Private",
-                year: "2024 - 2025",
-              },
-              {
-                title: "RentArround",
-                description:
-                  "A comprehensive E-Commerce platform with both web and mobile applications. Features robust online marketplace for seamless buying and selling experiences between customers and merchants.",
-                tech: "React.js, React Native, Firebase, Python, Django",
-                image: "/images/rentarround.png",
-                github: "Private",
-                year: "2024 - 2025",
-              },
-              {
-                title: "Wosom",
-                description:
-                  "An events management web application that provides users with the ability to explore, book, and manage all types of events through a user-friendly online platform.",
-                tech: "React.js, Firebase, PHP, Laravel",
-                image: "/images/wosom.png",
-                github: "Private",
-                year: "2024",
-              },
-              {
-                title: "Clean&Co",
-                description:
-                  "A cleaning service corporation platform with web and mobile applications. Enables seamless booking and management of professional cleaning services for both customers and service providers.",
-                tech: "React.js, React Native, Firebase, Python, Django",
-                image: "/images/cleanandco.png",
-                github: "Private",
-                year: "2024",
-              },
-              {
-                title: "Growtal",
-                description:
-                  "A freelance marketplace web application built from scratch. Features complete API integration with Axios & Redux state management, Firebase push notifications (foreground & background), social logins (Google & LinkedIn), and multiple user type handling. Led junior developers team on this project.",
-                tech: "React.js, ReactStrap, Firebase, Python, Django",
-                image: "/images/growtal.png",
-                github: "Private",
-                year: "2023 - 2024",
-              },
-              {
-                title: "BGI",
-                description:
-                  "Comprehensive web application built from scratch using React.js and ReactStrap. Features complete API integration with Redux, Firebase push notifications, Pubnub real-time messaging, social logins, and multi-user type support. Successfully led the development team.",
-                tech: "React.js, ReactStrap, Material UI, Firebase, Pubnub, Python, Django",
-                image: "/images/bgi.png",
-                github: "Private",
-                year: "2022 - 2023",
-              },
-              {
-                title: "UIBA",
-                description:
-                  "Advanced web application featuring complete authentication flows, real-time notifications, state management with Redux, and Material UI design system. Delivered on time with full team leadership.",
-                tech: "React.js, ReactStrap, Material UI, Firebase, Python, Django",
-                image: "/images/uiba.png",
-                github: "Private",
-                year: "2022 - 2023",
-              },
-              {
-                title: "MightyMe",
-                description:
-                  "Mobile fitness application built with React Native. Features comprehensive user management, real-time notifications, and seamless backend integration. Successfully led the development and delivery.",
-                tech: "React Native, CSS, Firebase, Python, Django",
-                image: "/images/mightyme.png",
-                github: "Private",
-                year: "2021 - 2022",
-              },
-              {
-                title: "BlaqueFitness",
-                description:
-                  "Feature-rich mobile fitness application with user authentication, workout tracking, and real-time sync capabilities. Implemented push notifications and social login features.",
-                tech: "React Native, CSS, Firebase, Python, Django",
-                image: "/images/blaquefitness.png",
-                github: "Private",
-                year: "2021 - 2022",
-              },
-              {
-                title: "Highland & PakTejarat",
-                description:
-                  "Multiple full-stack projects including both web and mobile applications. Built using traditional PHP/Laravel stack with modern frontend implementations and responsive designs.",
-                tech: "Laravel, PHP, CSS, HTML",
-                image: "/images/highland.png",
-                github: "Private",
-                year: "2020 - 2022",
-              },
-            ].map((project, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {projects.map((project, index) => (
               <motion.div
                 key={project.title}
                 initial={{ opacity: 0, y: 20 }}
@@ -476,40 +407,81 @@ export default function Home() {
                 <div className="relative overflow-hidden">
                   <Image
                     src={project.image}
-                    alt={project.title}
-                    width={400}
-                    height={200}
-                    className="w-full h-48 object-cover"
-                    unoptimized
-                    onError={(e) => {
-                      e.currentTarget.src = "/images/oms.png";
-                    }}
+                    alt={`Screenshot of the ${project.title} project`}
+                    width={640}
+                    height={320}
+                    loading="lazy"
+                    className="w-full h-52 object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-70 transition-opacity flex items-end">
-                    <div className="p-4 w-full flex justify-end space-x-3">
-                      <div className="bg-gray-900/80 px-3 py-1.5 rounded-full text-xs text-teal-400 font-medium border border-teal-500/30">
-                        {project.year}
-                      </div>
-                    </div>
-                  </div>
                 </div>
                 <div className="p-6 flex-grow flex flex-col">
-                  <h3 className="text-xl font-bold mb-2 text-white">
+                  <h3 className="text-xl font-bold mb-3 text-white">
                     {project.title}
                   </h3>
-                  <Tooltip 
-                    title={project.description}
-                    placement="bottom"
-                    overlayStyle={{ maxWidth: 400 }}
-                  >
-                    <p className="text-gray-400 mb-4 line-clamp-3 cursor-help">
-                      {project.description}
+                  <p className="text-gray-400 mb-4 text-sm leading-relaxed">
+                    {project.problem}
+                  </p>
+                  <div className="mb-3">
+                    <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                      What I built
+                    </span>
+                    <p className="text-gray-300 text-sm leading-relaxed mt-1">
+                      {project.built}
                     </p>
-                  </Tooltip>
-                  <div className="mt-auto">
-                    <p className="text-sm text-teal-400 font-medium">
-                      {project.tech}
+                  </div>
+                  <div className="mb-4">
+                    <span className="text-xs font-semibold uppercase tracking-wide text-teal-500">
+                      Result
+                    </span>
+                    <p className="text-gray-200 text-sm leading-relaxed mt-1">
+                      {project.result}
                     </p>
+                  </div>
+                  <div className="flex flex-wrap gap-2 mb-5">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-2.5 py-1 text-xs rounded-md bg-gray-700/50 text-teal-300 border border-gray-600/50"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="mt-auto flex flex-wrap gap-3">
+                    {project.liveUrl ? (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-teal-600 to-cyan-600 text-white text-sm font-medium hover:shadow-lg transition-all"
+                      >
+                        <FaExternalLinkAlt size={12} /> Live demo
+                      </a>
+                    ) : (
+                      <span
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-700/40 text-gray-500 text-sm font-medium cursor-not-allowed"
+                        title="Live demo coming soon"
+                      >
+                        <FaExternalLinkAlt size={12} /> Demo coming soon
+                      </span>
+                    )}
+                    {project.repoUrl && project.repoUrl !== "private" ? (
+                      <a
+                        href={project.repoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-600 text-gray-200 text-sm font-medium hover:border-teal-500 hover:text-white transition-all"
+                      >
+                        <FaGithub size={14} /> Code
+                      </a>
+                    ) : (
+                      <span
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-700 text-gray-500 text-sm font-medium"
+                        title="Source code is private"
+                      >
+                        <FaLock size={12} /> Code private
+                      </span>
+                    )}
                   </div>
                 </div>
               </motion.div>
@@ -551,22 +523,21 @@ export default function Home() {
               <h2 className="text-3xl md:text-4xl font-bold mb-4">About Me</h2>
               <div className="section-divider"></div>
               <p className="text-gray-300 mb-6 leading-relaxed">
-                Hi! I&apos;m <strong>Jahanzaib Ali</strong>, an experienced Full-Stack Developer with a proven 
-                track record of successfully delivering advanced Web and Mobile Applications. 
-                I specialize in JavaScript, React.js, Vue.js, React Native, Python, Node.js, 
-                Express.js, Dart, and Flutter.
+                I&apos;m a Senior Full-Stack Engineer with 6+ years building and
+                shipping production web and mobile applications for international
+                remote teams across the US, UK, Germany, and Cyprus.
               </p>
               <p className="text-gray-300 mb-6 leading-relaxed">
-                I also perform the role of Team Leader in my company, managing multiple projects 
-                and coordinating development teams. With strong communication and technical skills 
-                backed by my IT education, I&apos;ve led the development of projects that clients have 
-                deemed as &quot;standards&quot; in their field. My leadership has helped increase company 
-                revenue while maintaining high-quality code standards.
+                I work primarily in React, Next.js, TypeScript, Node.js, and
+                React Native, and I focus on integrating AI and LLM-powered
+                features into real products — from AI-driven SEO and analytics
+                platforms to an AI-powered learning system. I care about clean,
+                type-safe architecture, performance, and shipping features end-to-end.
               </p>
               <p className="text-gray-300 mb-6 leading-relaxed">
-                Whether it&apos;s building AI-powered LMS systems, E-commerce platforms, event management 
-                applications, or mobile fitness apps - I bring innovative ideas, solid architecture, 
-                and on-time delivery to every project.
+                Whether it&apos;s a new product, an AI feature for an existing app,
+                or a cross-platform build, I help teams ship reliable software
+                their users enjoy.
               </p>
               <div className="flex space-x-4">
                   <motion.a
@@ -583,6 +554,55 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Testimonials Section — hidden in production until real entries exist.
+          Owner: add real quotes in src/data/testimonials.ts (placeholders are filtered out). */}
+      {realTestimonials.length > 0 && (
+        <section id="testimonials" className="bg-black">
+          <div className="max-w-5xl mx-auto px-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="mb-16"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                What People Say
+              </h2>
+              <div className="section-divider"></div>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {realTestimonials.map((t, index) => (
+                <motion.div
+                  key={`${t.name}-${index}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  className="testimonial-card"
+                >
+                  <div className="quote-icon">&ldquo;</div>
+                  <p className="review-text">{t.quote}</p>
+                  <div className="client-info">
+                    <div className="client-avatar">
+                      {t.name.charAt(0).toUpperCase()}
+                    </div>
+                    <div>
+                      <div className="client-name">{t.name}</div>
+                      <div className="client-source">
+                        {t.role}
+                        {t.company ? `, ${t.company}` : ""}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Contact Section */}
       <section id="contact" className="bg-gradient-to-b from-gray-900 to-black">
         <div className="max-w-5xl mx-auto px-6">
@@ -597,6 +617,10 @@ export default function Home() {
               Get In Touch
             </h2>
             <div className="section-divider"></div>
+            <p className="text-lg text-gray-300 max-w-2xl -mt-4">
+              Let&apos;s build something — available for remote roles and
+              freelance projects worldwide.
+            </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -673,9 +697,12 @@ export default function Home() {
             >
               <div>
                 <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
-                <p className="text-gray-300 mb-6 leading-relaxed">
+                <p className="text-gray-300 mb-3 leading-relaxed">
                   Feel free to reach out to me for collaboration, job
                   opportunities, or just to say hello!
+                </p>
+                <p className="text-teal-400 mb-6 font-medium">
+                  I usually reply within 24 hours.
                 </p>
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3">
@@ -755,11 +782,12 @@ export default function Home() {
 
               <div className="mt-12">
                 <h3 className="text-xl font-bold mb-4">Connect With Me</h3>
-                <div className="flex space-x-4">
+                <div className="flex space-x-4 mb-6">
                   <motion.a
                     href="https://github.com/mirza8845"
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="GitHub profile"
                     whileHover={{ scale: 1.1, y: -5 }}
                     className="inline-flex w-12 h-12 rounded-full bg-gray-800 items-center justify-center hover:bg-gray-700 transition-colors"
                   >
@@ -769,12 +797,22 @@ export default function Home() {
                     href="https://www.linkedin.com/in/jahanzaib-ali-dev/"
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="LinkedIn profile"
                     whileHover={{ scale: 1.1, y: -5 }}
                     className="inline-flex w-12 h-12 rounded-full bg-gray-800 items-center justify-center hover:bg-teal-700 transition-colors"
                   >
                     <FaLinkedin size={20} className="text-teal-400" />
                   </motion.a>
                 </div>
+                {/* {{TODO: owner — drop your résumé PDF at /public/resume.pdf}} */}
+                <a
+                  href="/resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-teal-500/50 text-teal-300 font-medium hover:bg-teal-500/10 hover:text-white transition-all"
+                >
+                  <FaFileDownload size={16} /> Download résumé
+                </a>
               </div>
             </motion.div>
           </div>
